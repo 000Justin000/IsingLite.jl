@@ -65,7 +65,7 @@ The only non-optional argument of the `diagram` function is a function `f` imple
 
 - `size`, a `Integer` with the size of the spin grid used to generate the diagram (default is `10`)
 - `ensembles`, an `Integer` denoting the number of ensembles (default is `50`)
-- `h`, an 2d `Float64` array indicating the value of the external field at each site (default is `0.0`)
+- `h`, an 2-dimensional `Float64` array indicating the value of the external field at each site (default is `0.0`)
 - `J`, a `Float64` number indicating interaction strength between neighboring grid (default is `1.0`)
 - `mintemp`, a `Float64` number indicating the temperature at which the simulation starts (default is `0.5`)
 - `step`, a `Float64` number indicating by what value the temperature changes at each iteration (default is `0.2`)
