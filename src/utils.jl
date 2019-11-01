@@ -18,21 +18,22 @@ end
 
 # Phase diagram (magnetization by temperature) using given algorithm
 function diagram(func::Function;
-                 size::Int          = 10,    # Size of the grid
-                 ensembles::Int     = 50,    # Number of ensembles
-                 h::Float64         = 0.0,   # External field
-                 mintemp::Float64   = 0.5,   # Starting temperature
-                 step::Float64      = 0.2,   # Step of temperatures
-                 maxtemp::Float64   = 6.0,   # Final temperature
-                 iters::Int         = 50000, # Number of the iterations
-                 plot::Bool         = true,  # Plot flag
-                 verbose::Bool      = true)  # Verbose flag
+                 size::Int           = 10,                 # Size of the grid
+                 ensembles::Int      = 50,                 # Number of ensembles
+                 h::Array{Float64,2} = zeros(size(grid)),  # External field
+                 J::Float64          = 1.0,                # Interaction
+                 mintemp::Float64    = 0.5,                # Starting temperature
+                 step::Float64       = 0.2,                # Step of temperatures
+                 maxtemp::Float64    = 6.0,                # Final temperature
+                 iters::Int          = 50000,              # Number of the iterations
+                 plot::Bool          = true,               # Plot flag
+                 verbose::Bool       = true)               # Verbose flag
 
     name  = namefunc(func)
     temps = Vector{Float64}();
     mags  = Vector{Float64}();
     for t in mintemp:step:maxtemp
-        m = mean([func(spingrid(size), h=h, temp=t, iters=iters, plot=false, verbose=false)[end] for i in 1:ensembles])
+        m = mean([func(spingrid(size), h=h, J=J, temp=t, iters=iters, plot=false, verbose=false)[end] for i in 1:ensembles])
         if verbose println("(T=$t) Avg. magnetization after $name: $m") end
 
         push!(temps, t)
