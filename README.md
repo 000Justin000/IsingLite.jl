@@ -46,7 +46,7 @@ metropolis!(g; h=-0.05*ones(25,25), J=-0.5, iters=1000000, plot=false)
 
 The supported keyword arguments are:
 
-- `h`, an 2d `Float64` array indicating the value of the external field at each site (default is `0.0`)
+- `h`, an 2-dimensional `Float64` array indicating the value of the external field at each site (default is `0.0`)
 - `J`, a `Float64` number indicating interaction strength between neighboring grid (default is `1.0`)
 - `temp`, a `Float64` number indicating the temperature of the simulation (default is `1.0`) 
 - `iters`, an `Integer` indicating the number of iterations to be performed (default is `50000`)
