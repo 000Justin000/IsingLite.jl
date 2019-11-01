@@ -1,6 +1,7 @@
 # One step of the metropolis algorithm on a Ising's spin graph
 function stepmetropolis!(grid::Array{Int,2};                       # Spin grid
                          h::Array{Float64,2} = zeros(size(grid)),  # External field
+                         J::Float64          = 1.0,                # Interaction
                          temp::Float64       = 1.0)                # Temperature
 
     # Randomly pick a position within the grid
@@ -9,7 +10,7 @@ function stepmetropolis!(grid::Array{Int,2};                       # Spin grid
 
     # Calculate the ΔE for switching the spin
     m      = nspins(grid, x, y) |> sum
-    eplus  = -m - h[x,y]
+    eplus  = -m*J - h[x,y]
     ΔE     = -2eplus * grid[x,y]
 
     # Change spin accordingly
@@ -21,6 +22,7 @@ end
 # Several steps of the metropolis algorithm on a Ising's spin graph
 function metropolis!(grid::Array{Int,2};                       # Spin grid
                      h::Array{Float64,2} = zeros(size(grid)),  # External field
+                     J::Float64          = 1.0,                # Interaction
                      temp::Float64       = 1.0,                # Temperature
                      iters::Int          = 50000,              # Number of iterations
                      plot::Bool          = true,               # Plot flag
@@ -28,7 +30,7 @@ function metropolis!(grid::Array{Int,2};                       # Spin grid
 
     m = Vector{Float64}();
     for i in 1:iters
-        stepmetropolis!(grid, h=h, temp=temp)
+        stepmetropolis!(grid; h=h, J=J, temp=temp)
         push!(m, magnetization(grid))
         # Must find a better way to decide convergence
     end
