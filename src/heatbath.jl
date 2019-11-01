@@ -26,7 +26,7 @@ end
 function heatbath!(grid::Array{Int, 2};               # Spin grid
                    h::Float64                = 0.0,   # External field
                    temp::Float64             = 1.0,   # Temperature
-                   iters::Integer            = 50000, # Number of iterations
+                   iters::Int                = 50000, # Number of iterations
                    plot::Bool                = true,  # Plot flag
                    verbose::Bool             = true)  # Verbose flag
 

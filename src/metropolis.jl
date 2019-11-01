@@ -22,11 +22,11 @@ end
 function metropolis!(grid::Array{Int, 2};  # Spin grid
                      h::Float64=0.0,       # External field
                      temp::Float64=1.0,    # Temperature
-                     iters::Integer=50000, # Number of iterations
+                     iters::Int=50000,     # Number of iterations
                      plot::Bool=true,      # Plot flag
                      verbose::Bool=true)   # Verbose flag
 
-    m = Float64[]
+    m = Vector{Float64}();
     for i in 1:iters
         stepmetropolis!(grid, h=h, temp=temp)
         push!(m, magnetization(grid))

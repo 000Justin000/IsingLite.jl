@@ -21,8 +21,8 @@ function clusterspin(grid::Array{Int, 2}, cluster::BitArray{2})
 end
 
 # Return an array of neighbors coordinates (each one in a tuple of the kind (x,y))
-function neighbors(grid::Array{Int, 2}, i::Integer, j::Int)
-    n = Array((Int,Int), 0)
+function neighbors(grid::Array{Int, 2}, i::Int, j::Int)
+    n = Vector{Tuple{Int,Int}}();
 
     if i > 1             push!(n, (i-1, j  )) end
     if j > 1             push!(n, (i,   j-1)) end
@@ -34,19 +34,19 @@ end
 
 # Phase diagram (magnetization by temperature) using given algorithm
 function diagram(func::Function;
-                 size::Integer      = 10,    # Size of the grid
-                 ensembles::Integer = 50,    # Number of ensembles
+                 size::Int          = 10,    # Size of the grid
+                 ensembles::Int     = 50,    # Number of ensembles
                  h::Float64         = 0.0,   # External field
                  mintemp::Float64   = 0.5,   # Starting temperature
                  step::Float64      = 0.2,   # Step of temperatures
                  maxtemp::Float64   = 6.0,   # Final temperature
-                 iters::Integer     = 50000, # Number of the iterations
+                 iters::Int         = 50000, # Number of the iterations
                  plot::Bool         = true,  # Plot flag
                  verbose::Bool      = true)  # Verbose flag
 
     name  = namefunc(func)
-    temps = Float64[]
-    mags  = Float64[]
+    temps = Vector{Float64}();
+    mags  = Vector{Float64}();
     for t in mintemp:step:maxtemp
         m = mean([func(spingrid(size), h=h, temp=t, iters=iters, plot=false, verbose=false)[end] for i in 1:ensembles])
         if verbose println("(T=$t) Avg. magnetization after $name: $m") end

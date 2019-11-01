@@ -18,11 +18,11 @@ end
 function wolff!(grid::Array{Int, 2};
                 h::Float64           = 0.0,  # External field
                 temp::Float64        = 1.0,  # Temperature
-                iters::Integer       = 30,   # Number of iterations
+                iters::Int           = 30,   # Number of iterations
                 plot::Bool           = true, # Plot flag
                 verbose::Bool        = true) # Verbose flag
 
-    m = Float64[]
+    m = Vector{Float64}();
     for i in 1:iters
         # Randomly pick a position within the grid
         x   = rand(1:size(grid, 1))
