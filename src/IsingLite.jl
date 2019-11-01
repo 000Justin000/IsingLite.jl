@@ -1,5 +1,6 @@
 module IsingLite
 
+using StatsBase
 using PyPlot
 
 export neighbors,
