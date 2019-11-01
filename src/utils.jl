@@ -4,22 +4,6 @@ magnetization(a::Array{Int, 2})          = mean(a) |> abs # Get magnetizations o
 namefunc(f::Function)                    = "$f"[1:end-1]  # Get the simplified name of a function
 nspins(a::Array{Int, 2}, i::Int, j::Int) = [a[x,y] for (x,y) in neighbors(a,i,j)] # Get surrounding spins
 
-# Flip a spin
-function flip!(grid::Array{Int, 2}, cluster::BitArray{2})
-    for j in 1:size(grid, 2), i in 1:size(grid, 1)
-        if cluster[i, j] == true grid[i, j] *= -1 end
-    end
-end
-
-# Return the sum of spins on a cluster
-function clusterspin(grid::Array{Int, 2}, cluster::BitArray{2})
-    spin = 0
-    for j in 1:size(grid, 2), i in 1:size(grid, 1)
-        if cluster[i,j] == true spin += grid[i,j] end
-    end
-    return spin
-end
-
 # Return an array of neighbors coordinates (each one in a tuple of the kind (x,y))
 function neighbors(grid::Array{Int, 2}, i::Int, j::Int)
     n = Vector{Tuple{Int,Int}}();

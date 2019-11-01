@@ -1,7 +1,7 @@
 # One step of the metropolis algorithm on a Ising's spin graph
-function stepmetropolis!(grid::Array{Int, 2}; # Spin grid
-                         h::Float64    = 0.0, # External field
-                         temp::Float64 = 1.0) # Temperature
+function stepmetropolis!(grid::Array{Int,2};                      # Spin grid
+                         h::Array{Float64,2} = zeros(size(grid))  # External field
+                         temp::Float64       = 1.0)               # Temperature
 
     # Randomly pick a position within the grid
     x   = rand(1:size(grid, 1))
@@ -9,7 +9,7 @@ function stepmetropolis!(grid::Array{Int, 2}; # Spin grid
 
     # Calculate the ΔE for switching the spin
     m      = nspins(grid, x, y) |> sum
-    eplus  = -m - h
+    eplus  = -m - h[x,y]
     ΔE     = -2eplus * grid[x,y]
 
     # Change spin accordingly
@@ -18,13 +18,13 @@ function stepmetropolis!(grid::Array{Int, 2}; # Spin grid
     end
 end
 
-# Several steps of the heat bath algorithm on a Ising's spin graph
-function metropolis!(grid::Array{Int, 2};  # Spin grid
-                     h::Float64=0.0,       # External field
-                     temp::Float64=1.0,    # Temperature
-                     iters::Int=50000,     # Number of iterations
-                     plot::Bool=true,      # Plot flag
-                     verbose::Bool=true)   # Verbose flag
+# Several steps of the metropolis algorithm on a Ising's spin graph
+function metropolis!(grid::Array{Int,2};                      # Spin grid
+                     h::Array{Float64,2} = zeros(size(grid))  # External field
+                     temp::Float64       = 1.0,               # Temperature
+                     iters::Int          = 50000,             # Number of iterations
+                     plot::Bool          = true,              # Plot flag
+                     verbose::Bool       = true)              # Verbose flag
 
     m = Vector{Float64}();
     for i in 1:iters

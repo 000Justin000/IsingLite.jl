@@ -1,8 +1,8 @@
 # One step of the heat bath algorithm on a Ising's spin grid
-function stepheatbath!(grid::Array{Int, 2};              # Spin grid
-                       h::Float64                = 0.0,  # External field
-                       temp::Float64             = 1.0,  # Temperature
-                       verbose::Bool             = true) # Verbose flag
+function stepheatbath!(grid::Array{Int,2};                      # Spin grid
+                       h::Array{Float64,2} = zeros(size(grid))  # External field
+                       temp::Float64       = 1.0,               # Temperature
+                       verbose::Bool       = true)              # Verbose flag
 
     @assert temp != 0 "ArgumentError: Temperature can't be zero"
 
@@ -12,7 +12,7 @@ function stepheatbath!(grid::Array{Int, 2};              # Spin grid
 
     # Get the probability of a up spin on (x,y) spot
     m   = nspins(grid, x, y) |> sum
-    eplus  = -m - h
+    eplus  = -m - h[x,y]
     probup = exp(-eplus/temp) / (exp(-eplus/temp) + exp(eplus/temp))
 
     # Change spin accordingly
@@ -23,12 +23,12 @@ function stepheatbath!(grid::Array{Int, 2};              # Spin grid
 end
 
 # Several steps of the heat bath algorithm on a Ising's spin grid
-function heatbath!(grid::Array{Int, 2};               # Spin grid
-                   h::Float64                = 0.0,   # External field
-                   temp::Float64             = 1.0,   # Temperature
-                   iters::Int                = 50000, # Number of iterations
-                   plot::Bool                = true,  # Plot flag
-                   verbose::Bool             = true)  # Verbose flag
+function heatbath!(grid::Array{Int,2};                      # Spin grid
+                   h::Array{Float64,2} = zeros(size(grid))  # External field
+                   temp::Float64       = 1.0,               # Temperature
+                   iters::Int          = 50000,             # Number of iterations
+                   plot::Bool          = true,              # Plot flag
+                   verbose::Bool       = true)              # Verbose flag
 
     @assert iters > 100 "ArgumentError: \"iters\" must be higher than 100"
     m = [stepheatbath!(grid, h=h, temp=temp, verbose=false) |> magnetization for i in 1:iters]
