@@ -7,7 +7,7 @@ Some fun with 2-dimensional [Ising model](https://en.wikipedia.org/wiki/Ising_mo
 To install this package, inside Julia REPL, type:
 
 ```julia
-Pkg.clone("https://github.com/000Justin000/IsingLite.jl.git")
+] add https://github.com/000Justin000/IsingLite.jl.git#jj585
 ```
 
 ## Usage
