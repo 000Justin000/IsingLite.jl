@@ -20,7 +20,7 @@ end
 function diagram(func::Function;
                  size::Int           = 10,                 # Size of the grid
                  ensembles::Int      = 50,                 # Number of ensembles
-                 h::Array{Float64,2} = zeros(size(grid)),  # External field
+                 h::Array{Float64,2} = zeros(size, size),  # External field
                  J::Float64          = 1.0,                # Interaction
                  mintemp::Float64    = 0.5,                # Starting temperature
                  step::Float64       = 0.2,                # Step of temperatures
