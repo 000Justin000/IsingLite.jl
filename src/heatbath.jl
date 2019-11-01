@@ -16,7 +16,7 @@ function stepheatbath!(grid::Array{Int, 2};              # Spin grid
     probup = exp(-eplus/temp) / (exp(-eplus/temp) + exp(eplus/temp))
 
     # Change spin accordingly
-    grid[x,y] = rand() < probup ? 1: -1
+    grid[x,y] = rand() < probup ? 1 : -1
 
     if verbose println("Changed $x,$y vertice spin to $(grid[x,y])") end
     return grid
